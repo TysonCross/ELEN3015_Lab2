@@ -49,18 +49,13 @@ substitutionTable(:,:,8) =...
      07, 11, 04, 01, 09, 12, 14, 02, 00, 06, 10, 13, 15, 03, 05, 08;...
      02, 01, 14, 07, 04, 10, 08, 13, 15, 12, 09, 00, 03, 05, 06, 11];
 
- outBlock = zeros(1,64);
+outBlock = [];
  
 for i=1:8
-%     row = 2*inBlock(i*6 + 1) + inBlock(i*6 + 6);
-%     col = 8*inBlock(i*6 + 2) + 4*inBlock(i*6 + 3) +...
-%           2*inBlock(i*6 + 4) + inBlock(i*6 + 5);
-%       
-%       value = substitutionTable(row,col,i);
-%       
-%       outBlock(i*4 + 1) = mod(value,8);
-%       outBlock(i*4 + 2) = mod(value,4);
-%       outBlock(i*4 + 3) = mod(value,2);
-%       outBlock(i*4 + 4) = value;
+    row = bin2dec(num2str(strcat(num2str(inBlock(i*6 - 5)),...
+          num2str(inBlock(i*6))))) + 1;
+    col = bin2dec(dec2bin(inBlock(i*6 -4:i*6-1))') + 1;
+    value = dec2bin(substitutionTable(row,col,i),4)-'0';
+    outBlock = [outBlock value];
 end
 

@@ -1,14 +1,16 @@
-clc 
-clear all
+function [ cipherblock ] = encrypt( plaintext, key )
+% Performs non-linear S-Box substitution on inBlock
 
 % Plaintext
-plaintext='Greetings';
-plainblock = reshape([dec2bin(uint64(plaintext))-'0'],1,[]);
-plainblock(64) = 0; % Padding for now
+% str_64 = typecast(uint64(plaintext),'uint64')
+plainblock = reshape(dec2bin(plaintext) -'0',1,[]);
+if length(plainblock) < 64
+    plainblock = padarray(plainblock',64-length(plainblock),'post')';
+end
 
 % Key transformation
-key = dec2bin(uint64(6744155797363555139))- '0';
-key_schedule = generateKeys(key);
+key_bin = dec2bin(uint64(key),64)- '0';
+key_schedule = generateKeys(key_bin);
 
 % Permute
 block = permuter(plainblock,'initial');
@@ -19,7 +21,7 @@ for round_no=1:16
     temp = R;
     R = permuter(R,'expansion');
     R = xor(R,key_schedule(round_no,:));
-    R = substitution(R); % not working!
+    R = substitution(R);
     R = permuter(R,'pbox');
     R = xor(R,L);
     L = temp;
@@ -28,8 +30,8 @@ for round_no=1:16
     end
 end
 
-block = [R L]
-block = permuter(block, 'final');
+block = [R L];
+cipherblock = permuter(block, 'final');
 
-% output
-disp(block);
+% clear temp round_no key_schedule R L plainblock R block
+end
