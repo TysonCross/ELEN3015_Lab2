@@ -1,13 +1,10 @@
-function [ outKey ] = shiftKey( inKey )
-% shiftKey() performs fixed order of 16 rounds of bitshifting,
-% either one or two places to the left depending on a round schedule
+function [ outKey ] = shiftKey( inKey, round_no)
+% Left-shifts (circularly) key entries, 1 or 2 places, depending on the round
 
-for i=1:16
-    if (i==1 || i==2 || i==9 || i==16)
-        shifts = 1;
-    else shifts = 2;
-    end
-    inKey = circshift(inKey',[-shifts,0]);
+if (round_no==1 || round_no==2 || round_no==9 || round_no==16)
+    shift = -1;
+else shift = -2;
 end
-outKey = inKey;
+
+outKey = circshift(inKey',[shift,0])';
 end
