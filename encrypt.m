@@ -33,5 +33,4 @@ end
 block = [R L];
 cipherblock = permuter(block, 'final');
 
-% clear temp round_no key_schedule R L plainblock R block
 end
