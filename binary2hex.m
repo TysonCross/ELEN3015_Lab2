@@ -16,9 +16,4 @@ for j = n : -1 : 1
     end
 end
  
-% str_key = num2str(binary_array);
-% str_key(isspace(str_key)) = '';
-% b2d = @(s)sum(bsxfun(@times,s-'0',pow2(size(s,2)-1:-1:0)),2);
-% hex_string = sprintf('%X',b2d(str_key));
-
 end

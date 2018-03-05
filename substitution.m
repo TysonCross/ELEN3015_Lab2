@@ -52,10 +52,12 @@ substitutionTable(:,:,8) =...
 outBlock = [];
  
 for i=1:8
-    row = bin2dec(num2str(strcat(num2str(inBlock(i*6 - 5)),...
-          num2str(inBlock(i*6))))) + 1;
-    col = bin2dec(dec2bin(inBlock(i*6 -4:i*6-1))') + 1;
-    value = dec2bin(substitutionTable(row,col,i),4)-'0';
+    row_index_1 = num2string(inBlock(i*6-5));
+    row_index_2 = num2string(inBlock(i*6));
+    row_index = strcat(row_index_1,row_index_2);
+    row = bin2dec(row_index) + 1;
+    col = bin2dec(dec2bin(inBlock(i*6-4:i*6-1))') + 1;
+    value = dec2bin(substitutionTable(row,col,i),4)-'0';    
     outBlock = [outBlock value];
 end
 

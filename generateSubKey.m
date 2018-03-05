@@ -6,8 +6,6 @@ if i>16 || i<1
     error('Round number not in valid range [1-16]')
 end
 
-inKey = hex2binary(inKey);
-
 if length(inKey)~=56
     error('Please provide a 56-bit key')
 end
@@ -23,6 +21,6 @@ keyL = shiftKey(keyL,round_no);
 keyR = shiftKey(keyR,round_no);
 end
 
-outKey = permuter(binary2hex([keyL keyR]),'compression'); 
+outKey = permuter([keyL keyR],'compression'); 
 
 end
