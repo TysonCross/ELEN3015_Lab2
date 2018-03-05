@@ -48,7 +48,6 @@ switch mode
         error('Specify permutation mode: ''initial'', ''final'', ''parity'', ''compression'', ''expansion'', or ''pbox''')
 end
 
-               
 outBlock = zeros(1,len);
 
 for iter=1:len
