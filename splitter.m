@@ -1,4 +1,4 @@
-function [ outKey_l, outKey_r ] = split(inKey)
+function [ outKey_l, outKey_r ] = splitter(inKey)
 % splitter() splits an input row vector in half, into two seperate row vectors of equal length
 
 if mod(length(inKey),2)

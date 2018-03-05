@@ -23,9 +23,6 @@ keyL = shiftKey(keyL,round_no);
 keyR = shiftKey(keyR,round_no);
 end
 
-subkey = permuter([keyL keyR],'compression'); 
-subkey = num2str(subkey);
-subkey(isspace(subkey)) = '';
-outKey = binary2hex(subkey);            % output subkey as Hex string
+outKey = permuter(binary2hex([keyL keyR]),'compression'); 
 
 end

@@ -1,12 +1,8 @@
 function [ binary_array ] = hex2binary( hex_string )
 % hex2binary converts a hexidecimal number to a binary array
 
-% if nargin <2
-%     n  = 64;
-% end
-% binary_array = dec2bin(hex2dec(hex_number),n) - '0';
-
 hex = upper(hex_string);
+
 for i=1:length(hex)
     if hex(i)=='F'
         binary_array((i*4)-3:i*4)=[1 1 1 1];

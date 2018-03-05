@@ -1,6 +1,8 @@
 function [ outBlock ] = permuter(inBlock, mode)
 % Performs fixed permutation upon input block (64-/56-/48-bit)
 
+block = hex2binary(inBlock);
+
 % The permutation uses fixed D-tables and size of i/o block,
 % determined by the mode argument: 
 % For blocks: 'initial'(64-bit), 'final'(64-bit), 'expansion' (32->48-bit) or 'pbox'(32-bit)
@@ -51,7 +53,9 @@ end
 outBlock = zeros(1,len);
 
 for iter=1:len
-    outBlock(iter) = inBlock(permutationTable(iter));
+    outBlock(iter) = block(permutationTable(iter));
 end
+
+outBlock = binary2hex(outBlock);
 
 end

@@ -7,4 +7,5 @@ else shift = -2;
 end
 
 outKey = circshift(inKey',[shift,0])';
+% circshift(key,no_of_bits,2) % 1 is column, 2 is row
 end
