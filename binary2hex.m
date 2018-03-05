@@ -1,9 +1,8 @@
 function [ hex_string ] = binary2hex( binary_array )
 % binary2hex converts a binary array to a hexidecimal
+% The bit depth varies with the input value's size/length
 
-bin_str = num2str(binary_array);
-bin_str(isspace(bin_str)) = '';
-
+bin_str = num2string(binary_array);
 i = length(bin_str);
 n = ceil(i/4); 
 

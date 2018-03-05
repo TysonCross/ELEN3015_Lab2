@@ -1,5 +1,5 @@
 function [ output ] = addParityBits( bin_array )
-% addParityBits adds parity bits to a 56-bit key, producing a 64-bit key
+% addParityBits counts and adds parity bits to a 56-bit key, producing a 64-bit key
 
 if length(bin_array)~=56
     error('Please provide a 56-bit key')

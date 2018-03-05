@@ -1,5 +1,6 @@
 function [ binary_array ] = hex2binary( hex_string )
 % hex2binary converts a hexidecimal number to a binary array
+% From https://www.mathworks.com/matlabcentral/fileexchange/24282-hexadecimal-to-binary
 
 hex = upper(hex_string);
 

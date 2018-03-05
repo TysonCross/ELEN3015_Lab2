@@ -4,41 +4,44 @@ clc
 clear all
 
 % inputs
-% plaintext_str = '0000000100100011010001010110011110001001101010111100110111101111'
-% plaintext = plaintext_str - '0';
-plaintext_str = '0123456789ABCDEF'
-plaintext = hex2binary(plaintext_str);
-
-key_str       = '0001001100110100010101110111100110011011101111001101111111110001';
-key_64 = key_str - '0';
+plaintext_str = '0123456789ABCDEF';                       % test block
+plaintext = hex2binary(plaintext_str);                    % convert to binary row vector
+key_str = '0001001100110100010101110111100110011011101111001101111111110001';
+key_64 = key_str - '0';                                   % convert to binary row vector
 key_56 = permuter(key_64, 'parity');                      % discard parity bits and permute
 
 %% encryption
 block = permuter(plaintext,'initial');                    % initial permutation
-
-for round_no = 1:16
-    subkey = generateSubKey(key_56,round_no);
-    [ L, R ] = DES(block, round_no, subkey);
-    block = [L R];
+for round_no = 1:16                                       % 16 rounds of DES
+    subkey = generateSubKey(key_56,round_no);             % subkey generation for each round
+    [ L, R ] = DES(block, round_no, subkey);              % DEA (encryption)
+    block = [L R];                                        % rejoin the L and R halves
 end
+cipherblock = permuter(block, 'final');                   % final permutation
 
-cipherblock = permuter(block, 'final');
-cipher_str = binary2hex(cipherblock)
 
 %% decryption
-out_block = permuter(cipherblock,'initial');
-
-for round_no=1:16
-    subkey = generateSubKey(key_56,17-round_no);
-    [L, R] = DES(out_block, round_no, subkey);
-    out_block = [L R];
+out_block = permuter(cipherblock,'initial');              % initial permutation
+for round_no=1:16                                         % 16 rounds of DES
+    subkey = generateSubKey(key_56,17-round_no);          % subkeys generated in reverse order
+    [L, R] = DES(out_block, round_no, subkey);            % DEA (decrpytion)
+    out_block = [L R];                                    % rejoin block halves
 end
+decrypted = permuter(out_block, 'final');                 % final permutation
 
-decrypted = permuter(out_block, 'final');
-decrypted_str = binary2hex(decrypted)
 
+% output and check
+decrypted_str = binary2hex(decrypted);
+cipher_str = binary2hex(cipherblock);
+disp(['Input 64-bit key:     ', binary2hex(key_64)])
+disp(['Encryted ciphertext:  ', cipher_str])
+disp(['Original input text:  ', plaintext_str]);
+disp(['Decrypted plaintext:  ', decrypted_str])
+disp(' ')
+
+% check
 if isequal(decrypted_str,plaintext_str)
     disp('The decrypted block matches the plaintext block');
 else
-    disp('The decrypted block does NOT match the plaintext block');
+    warning('The decrypted block does NOT match the plaintext block');
 end

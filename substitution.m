@@ -52,12 +52,12 @@ substitutionTable(:,:,8) =...
 outBlock = [];
  
 for i=1:8
-    row_index_1 = num2string(inBlock(i*6-5));
-    row_index_2 = num2string(inBlock(i*6));
-    row_index = strcat(row_index_1,row_index_2);
-    row = bin2dec(row_index) + 1;
-    col = bin2dec(dec2bin(inBlock(i*6-4:i*6-1))') + 1;
-    value = dec2bin(substitutionTable(row,col,i),4)-'0';    
-    outBlock = [outBlock value];
+    row_index_1 = num2string(inBlock(i*6-5));              	% first bit of the 6-bit block
+    row_index_2 = num2string(inBlock(i*6));                 % last bit of the 6-bit block
+    row_index = strcat(row_index_1,row_index_2);            % convert the bits into an index
+    row = bin2dec(row_index) + 1;                           % matlab indexing starts at 1, not 0
+    col = bin2dec(dec2bin(inBlock(i*6-4:i*6-1))') + 1;      % middle four bits as index
+    value = dec2bin(substitutionTable(row,col,i),4)-'0';    % apply the sunstitution table
+    outBlock = [outBlock value];                            % append the bit-block
 end
 

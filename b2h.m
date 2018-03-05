@@ -1,4 +1,7 @@
 function hex_val = b2h(bin_val)
+% b2h converts 4-bit sections of binary input to hexidecimal values
+% From https://www.mathworks.com/matlabcentral/fileexchange/24282-hexadecimal-to-binary
+
 switch bin_val
     case {'0', '00', '000', '0000'}
         hex_val = '0';

@@ -6,20 +6,20 @@ function [ L, R ] = DES( inBlock, round_no, subKey)
 % end
 
 % Round
-[L, R] = splitter(inBlock);   
+[L, R] = splitter(inBlock);                     % evenly split the block into two 32-bit halves
 
-temp = R;
-R = permuter(R,'expansion');
-R = xor(R, subKey);
-R = substitution(R);
-R = permuter(R,'pbox');
-R = xor(R,L);
-L = temp;
-if round_no == 16
+temp = R;                                       % store the L half value
+R = permuter(R,'expansion');                    % perform the expansion permutation
+R = xor(R, subKey);                             % XOR with the round subkey
+R = substitution(R);                            % perform non-linear s-box substitution
+R = permuter(R,'pbox');                         % perform the p-box permutation
+R = xor(R,L);                                   % XOR with the original L half
+L = temp;                                       % assign L to the output from the Feistel cipher
+if round_no == 16                               % swap the L and R halves on the final round
     [R,L] = deal(L,R);
-else
 end
 
+%% output
 % disp(['Round ', num2str(round_no), ':'])
 % disp(['L: ', num2string(L), '   R: ',num2string(R)])
 end
