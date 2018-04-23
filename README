@@ -1,0 +1,30 @@
+ELEN3015 Data and Information Management
+Tyson Cross 1239448
+
+Lab 2
+-----
+
+This lab is a basic implementation of DES in MATLAB
+
+:Files included:
+----------------
+├── 1239448_ELEN3015_Lab2_Report.pdf    : The main Lab 2 report
+├── README                              : this file!
+└── code
+    ├── DES.m                           : function for a general Feistel cipher round
+    ├── addParityBits.m                 : function to calculate parity on a 56-bit key
+    ├── analyseSubKeys.m                : counts and classifies unique subkeys
+    ├── b2h.m                           : binary to hex conversion (per nibble)
+    ├── binary2hex.m                    : hex to binary conversion (fixed length)
+    ├── generateSubKey.m                : function for general 48-bit subkey generation
+    ├── hex2binary.m                    : hex to binary conversion (wrapper)
+    ├── num2string.m                    : converts num to spaceless string
+    ├── permuter.m                      : general permuter function
+    ├── shiftKey.m                      : function for subkey bit-shifting 
+    ├── splitter.m                      : function to split input evenly into R & L
+    ├── substitution.m                  : general s-box function
+    ├── question1.m                     : answers to Q.1
+    ├── question2.m                     : answers to Q.2
+    ├── question3.m                     : answers to Q.3
+    └── question4.m                     : answers to Q.4
+
